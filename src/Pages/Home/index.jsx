@@ -21,7 +21,7 @@ export default function Home({ token, user, setToken, setUser }) {
     api
       .get(`/users/${user.id}`)
       .then((res) => {
-        res.data.techs.map((tec) => setModal([...modal, tec]));
+        setModal(res.data.techs);
       })
       .catch((err) => console.log(err));
   };
@@ -29,7 +29,6 @@ export default function Home({ token, user, setToken, setUser }) {
   useEffect(() => {
     loadModals();
   }, []);
-  console.log(modal);
 
   if (!token) {
     return <Redirect to="/login" />;

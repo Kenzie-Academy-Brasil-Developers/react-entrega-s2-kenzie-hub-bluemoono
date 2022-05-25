@@ -10,6 +10,6 @@ export const Container = styled.button`
   color: var(--grey-0);
   margin-top: 10px;
   @media (max-width: 400px) {
-    width: 300px;
+    width: 100%;
   }
 `;

@@ -32,6 +32,6 @@ export const InputComponent = styled.input`
     `}
 
   @media (max-width: 400px) {
-    width: 300px;
+    width: 100%;
   }
 `;

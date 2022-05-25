@@ -25,6 +25,7 @@ export const HeaderModal = styled.header`
     color: var(--grey-1);
   }
 `;
+
 export const BodyModal = styled.div`
   background-color: var(--grey-3);
   display: flex;
@@ -51,5 +52,16 @@ export const BodyModal = styled.div`
     color: var(--grey-0);
     align-self: flex-start;
     margin: 10px 0;
+  }
+
+  @media (max-width: 400px) {
+    ButtonLong {
+      font-size: 12px;
+    }
+
+    select,
+    option {
+      width: 100%;
+    }
   }
 `;

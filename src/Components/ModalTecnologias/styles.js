@@ -35,6 +35,7 @@ export const HeaderModal = styled.header`
     color: var(--grey-1);
   }
 `;
+
 export const BodyModal = styled.div`
   background-color: var(--grey-3);
   display: flex;
@@ -69,5 +70,17 @@ export const BodyModal = styled.div`
     flex-direction: row;
     display: inline-flex;
     align-items: center;
+  }
+
+  @media (max-width: 400px) {
+    Button {
+      font-size: 12px;
+      margin: 5px;
+    }
+
+    select,
+    option {
+      width: 100%;
+    }
   }
 `;
