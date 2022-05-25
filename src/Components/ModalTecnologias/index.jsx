@@ -18,23 +18,33 @@ const style = {
   p: 4,
 };
 
-export default function ModalTecnologias({ token, title, bgColor, status }) {
+export default function ModalTecnologias({
+  token,
+  title,
+  bgColor,
+  status,
+  tecId,
+}) {
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
 
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-  } = useForm();
+  const { register, handleSubmit } = useForm();
 
-  const newTecs = (data) => {
-    console.log(data);
-    console.log(token);
-
+  const editTecs = (data) => {
     api
-      .put("/users/techs", data, {
+      .put(`/users/techs/${tecId}`, data, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      .then((res) => console.log(res))
+      .catch((err) => console.log(err));
+  };
+
+  const deleteTecs = () => {
+    api
+      .delete(`/users/techs/${tecId}`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -55,12 +65,14 @@ export default function ModalTecnologias({ token, title, bgColor, status }) {
             <button onClick={() => handleClose()}>X</button>
           </HeaderModal>
           <BodyModal>
-            <form onSubmit={handleSubmit(newTecs)}>
+            <form onSubmit={handleSubmit(editTecs)}>
               <Input
                 label="Nome"
                 placeholder="Ex: Typescript"
                 register={register}
                 name="title"
+                value={title}
+                disabled
               />
 
               <p className="white">Selecionar status</p>
@@ -75,7 +87,9 @@ export default function ModalTecnologias({ token, title, bgColor, status }) {
               <Button bgColor="var(--primary-negative)" type="submit">
                 Salvar Alterações
               </Button>
-              <Button bgColor="var(--grey-1)">Excluir</Button>
+              <Button onClick={() => deleteTecs()} bgColor="var(--grey-1)">
+                Excluir
+              </Button>
             </form>
           </BodyModal>
         </Box>

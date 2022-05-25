@@ -1,10 +1,13 @@
+import { useEffect, useState } from "react";
 import { Redirect, useHistory } from "react-router-dom";
 import Button from "../../Components/Button";
 import BasicModal from "../../Components/Modal";
 import ModalTecnologias from "../../Components/ModalTecnologias";
+import api from "../../Services/api";
 import { Container, ContainerLogo, Content, Logo } from "./styles";
 
 export default function Home({ token, user, setToken, setUser }) {
+  const [modal, setModal] = useState([]);
   const history = useHistory();
 
   const logout = () => {
@@ -13,6 +16,20 @@ export default function Home({ token, user, setToken, setUser }) {
     setUser({});
     history.push("/login");
   };
+
+  const loadModals = () => {
+    api
+      .get(`/users/${user.id}`)
+      .then((res) => {
+        res.data.techs.map((tec) => setModal([...modal, tec]));
+      })
+      .catch((err) => console.log(err));
+  };
+
+  useEffect(() => {
+    loadModals();
+  }, []);
+  console.log(modal);
 
   if (!token) {
     return <Redirect to="/login" />;
@@ -36,12 +53,14 @@ export default function Home({ token, user, setToken, setUser }) {
       </ContainerLogo>
 
       <Content>
-        {user.techs.map((tec) => (
+        {modal.map((t) => (
           <ModalTecnologias
-            key={tec.id}
+            key={t.id}
             bgColor="var(--grey-4)"
-            title={tec.title}
-            status={tec.status}
+            title={t.title}
+            status={t.status}
+            tecId={t.id}
+            token={token}
           />
         ))}
       </Content>

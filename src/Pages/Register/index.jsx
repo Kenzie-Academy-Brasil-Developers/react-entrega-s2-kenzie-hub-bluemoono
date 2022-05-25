@@ -4,7 +4,7 @@ import Input from "../../Components/Input";
 import { Container, Content, Logo } from "./styles";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { useHistory } from "react-router-dom";
+import { Redirect, useHistory } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import api from "../../Services/api";
 import { toast } from "react-toastify";
@@ -54,9 +54,9 @@ export default function Register({ token }) {
       });
   };
 
-  // if (token === false || token === undefined || token === null) {
-  //   return <Redirect to="/login" />;
-  // }
+  if (token) {
+    return <Redirect to="/" />;
+  }
   return (
     <Container>
       <Logo>Kenzie Hub</Logo>

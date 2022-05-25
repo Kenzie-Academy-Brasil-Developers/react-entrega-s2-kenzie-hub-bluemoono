@@ -46,7 +46,7 @@ export default function Login({ user, token, setUser, setToken }) {
       .catch((err) => console.log(err));
   };
 
-  if (token !== "") {
+  if (token) {
     return <Redirect to="/" />;
   }
 

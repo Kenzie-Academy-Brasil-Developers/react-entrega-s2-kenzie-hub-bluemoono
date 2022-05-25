@@ -9,7 +9,7 @@ export default function Routes() {
     JSON.parse(localStorage.getItem("@KenzieHub: user")) || {}
   );
   const [token, setToken] = useState(
-    localStorage.getItem("@DemoNoturno: Token") || ""
+    localStorage.getItem("@KenzieHub: token") || ""
   );
   // const [authenticated, setAuthentiated] = useState(false);
 
